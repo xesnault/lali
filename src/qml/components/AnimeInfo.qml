@@ -3,21 +3,22 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Qt5Compat.GraphicalEffects
 import Lali.Types
-
-Rectangle {
+    
+ColumnLayout {
     property AnimeQML anime
-    color: "#333333"
-    radius: 16
+    
+    anchors.fill: parent
+    Layout.alignment: Qt.AlignTop
     
     RowLayout {
         
-        anchors.fill: parent
-        
+        Layout.alignment: Qt.AlignTop
+
         Image {
             property bool cachedImageFound: true
-            Layout.alignment: Qt.AlignLeft
-            Layout.preferredWidth: parent.parent.height * 0.66
-            Layout.preferredHeight: parent.parent.height
+            Layout.alignment: Qt.AlignTop | Qt.AlignLeft
+            Layout.preferredHeight: 128 * 1.5
+            Layout.preferredWidth: 128 
             fillMode: Image.PreserveAspectCrop
             asynchronous: true
             source: anime?.cachedImage || ""
@@ -38,17 +39,17 @@ Rectangle {
             
             Rectangle {
                 id: mask
-                width: 500
-                height: 500
-                radius: 16
+                width: 128
+                height: 128
+                radius: 8
                 visible: false
             }
         }
         
         ColumnLayout {
             Layout.fillWidth: true
-            Layout.alignment: Qt.AlignLeft
-            Layout.margins: 16
+            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+            Layout.leftMargin: 16
             spacing: 32
             
             // Missing status and genres
@@ -70,17 +71,17 @@ Rectangle {
                 wrapMode: Text.Wrap
                 color: "white"
             }
-            
-            Label {
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignTop
-                text: anime?.description || "[No description given]"
-                wrapMode: Text.Wrap
-                color: "white"
-            }
-            
-            Item { Layout.fillHeight: true } 
         }
-        
+    }
+    
+    Item { implicitHeight: 16 }
+    
+    Label {
+        Layout.fillWidth: true
+        Layout.alignment: Qt.AlignTop
+        text: anime?.description || "[No description given]"
+        wrapMode: Text.Wrap
+        color: "white"
     }
 }
+

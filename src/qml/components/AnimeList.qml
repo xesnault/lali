@@ -77,9 +77,9 @@ ScrollView {
         parent: root.contentItem
         modal: true
         width: root.width * 0.75
-        height: 400
         x: (root.width - width) / 2
         y: 128
+        padding: 16
         
         background: Rectangle {
             color: "#222222"
@@ -88,7 +88,6 @@ ScrollView {
         
         AnimeInfo {
             anime: selectedAnime
-            anchors.fill: parent
         }
     }
     
