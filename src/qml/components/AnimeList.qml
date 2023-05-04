@@ -38,6 +38,7 @@ ScrollView {
                     MouseArea {
                         anchors.fill: parent
                         acceptedButtons: Qt.LeftButton | Qt.RightButton
+                        cursorShape: Qt.PointingHandCursor
                         onClicked: (mouse) => {
                             selectedAnime = modelData
                             if (mouse.button === Qt.LeftButton) {

@@ -21,27 +21,26 @@ Rectangle {
         sourceSize.height: 48
         fillMode: Image.PreserveAspectFit
         source: image
-        
-        MouseArea {
-            id: ma
-            property bool hovered: false
-            anchors.fill: parent
-            onClicked: {
-                button.clicked();
-            }
-            
-            hoverEnabled: true
-            
-            onEntered: {
-                hovered = true
-            }
-
-            onExited: {
-                hovered = false
-            }
+    }
+    
+    MouseArea {
+        id: ma
+        property bool hovered: false
+        anchors.fill: parent
+        cursorShape: Qt.PointingHandCursor
+        onClicked: {
+            button.clicked();
         }
         
+        hoverEnabled: true
         
+        onEntered: {
+            hovered = true
+        }
+
+        onExited: {
+            hovered = false
+        }
     }
     
     Text {
