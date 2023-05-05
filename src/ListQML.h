@@ -8,12 +8,16 @@
 class ListQML : public QObject
 {
 	Q_OBJECT
-	Q_PROPERTY(QString name READ getName CONSTANT);
+	Q_PROPERTY(QString name READ getName WRITE setName NOTIFY nameChanged);
 	Q_PROPERTY(QList<AnimeQML*> animes READ getAnimes CONSTANT);
 public:
 	explicit ListQML(List list, QObject *parent = nullptr);
 	
-	QString getName() { return list.getName(); }
+	const QString getName() { return list.getName(); }
+    void setName(QString name) {
+        this->list.setName(name);
+        emit nameChanged();
+    }
 	QList<AnimeQML*> getAnimes() {
 		QList<AnimeQML*> animesQML;
 		for (const auto& anime : list.getAnimes()) {
@@ -26,6 +30,7 @@ private:
 	List list;
 	
 signals:
+    void nameChanged();
 	
 };
 

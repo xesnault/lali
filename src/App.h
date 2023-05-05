@@ -50,6 +50,7 @@ public:
 	Q_INVOKABLE void removeAnimeFromList(AnimeQML* anime, QString listName);
 	Q_INVOKABLE void createList(QString listName);
 	Q_INVOKABLE void deleteList(QString listName);
+    Q_INVOKABLE void updateList(QString listName, ListQML* listQML);
 	
 	/*void saveLists();*/
 	

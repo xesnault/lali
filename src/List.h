@@ -5,7 +5,7 @@
 
 class List
 {
-	
+
 public:
 	List() {};
 	List(QString name): name(name) {};
@@ -17,6 +17,7 @@ public:
 	}
 	
 	const QString getName() const { return name; }
+    void setName(const QString& name) { this->name = name; }
 	const QList<Anime>& getAnimes() const { return animes; }
 
 private:

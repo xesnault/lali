@@ -27,6 +27,7 @@ Window {
     
     RowLayout {
         anchors.fill: parent
+        spacing: 0
         
         Rectangle {
             Layout.alignment: Qt.AlignLeft

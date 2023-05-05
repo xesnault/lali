@@ -12,5 +12,8 @@
         <file>qml/main.qml</file>
         <file>qml/components/AniButton.qml</file>
         <file>qml/images/import.svg</file>
+        <file>qml/views/ListForm.qml</file>
+        <file>qml/images/settings.svg</file>
+        <file>qml/images/add.svg</file>
     </qresource>
 </RCC>

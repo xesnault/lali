@@ -76,6 +76,9 @@ void App::deleteList(QString listName) {
 	});
 	emit listsNamesChanged();
 	listRepository->save(lists);
+    if (!lists.empty()) {
+        selectListByName(lists[0].getName());
+    }
 }
 
 void App::importFromAnilist(const QString& userName, const QString& listName, const QString& targetListName) {
@@ -134,4 +137,14 @@ void App::refreshImagesCache() {
 				}
 		});
 	}
+}
+
+void App::updateList(QString listName, ListQML* listQML) {
+    auto list = std::find_if(lists.begin(), lists.end(), [=] (const List& list) {return list.getName() == listName;});
+    if (list == lists.end()) {
+        return ;
+    }
+    list->setName(listQML->getName());
+    emit listsNamesChanged();
+    listRepository->save(lists);
 }
