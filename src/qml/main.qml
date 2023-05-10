@@ -40,19 +40,7 @@ Window {
                 anchors.fill: parent
                 anchors.topMargin: 32
                 anchors.bottomMargin: 16
-                spacing: 64
-                
-                SideBarButton {
-                    Layout.preferredHeight: 84
-                    Layout.preferredWidth: 64
-                    Layout.alignment: Qt.AlignCenter | Qt.AlignTop
-                    text: "Search"
-                    image: "/qml/images/search.svg"
-                    onClicked: {
-                        currentPage = "search"
-                    }
-                    selected: currentPage == "search"
-                }
+                spacing: 32
                 
                 SideBarButton {
                     Layout.preferredHeight: 84
@@ -64,6 +52,18 @@ Window {
                         currentPage = "lists"
                     }
                     selected: currentPage == "lists"
+                }
+                
+                SideBarButton {
+                    Layout.preferredHeight: 84
+                    Layout.preferredWidth: 64
+                    Layout.alignment: Qt.AlignCenter | Qt.AlignTop
+                    text: "Search"
+                    image: "/qml/images/search.svg"
+                    onClicked: {
+                        currentPage = "search"
+                    }
+                    selected: currentPage == "search"
                 }
 
                 Item { Layout.fillHeight: true } 
