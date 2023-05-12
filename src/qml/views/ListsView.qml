@@ -3,7 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Lali.Types
 
-import "../components"
+import "../components" as Components
 
 RowLayout {
     anchors.fill: parent
@@ -148,25 +148,21 @@ RowLayout {
             Layout.fillWidth: true
             color: "transparent"
             
-            AnimeList {
+            Components.AnimeList {
                 list: app.selectedList
             }
         }
     }
     
-    Dialog {
+    Components.Modal {
         id: newListNameDialog
-        modal: true
-        width: 400
-        x: (parent.width - width) / 2
-        y: (parent.height - height) / 3
         
         ColumnLayout {
             Label {
                 text: "New list name:"
             }
 
-            AniTextField {
+            Components.TextField {
                 id: newListName
                 Layout.preferredWidth: 200
                 Layout.preferredHeight: 32
@@ -182,13 +178,8 @@ RowLayout {
         }
     }
     
-    Dialog {
+    Components.Modal {
         id: listEditForm
-        modal: true
-        width: 400
-        x: (parent.parent.width - width) / 2
-        y: (parent.parent.height - height) / 3
-        
         function setListToEdit (list) {
             listForm.list = list
         }
@@ -206,13 +197,8 @@ RowLayout {
         }
     }
     
-    Dialog {
+    Components.Modal {
         id: deleteConfirmation
-        modal: true
-        width: 400
-        x: (parent.parent.width - width) / 2
-        y: (parent.parent.height - height) / 3
-        
         ColumnLayout {
             Label {
                 text: "Do you really want to delete this list ?"

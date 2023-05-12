@@ -3,17 +3,19 @@
         <file>qml/components/SideBarButton.qml</file>
         <file>qml/components/AnimeCard.qml</file>
         <file>qml/components/AnimeList.qml</file>
-        <file>qml/components/AniTextField.qml</file>
+        <file>qml/components/TextField.qml</file>
         <file>qml/views/ListsView.qml</file>
         <file>qml/views/SearchView.qml</file>
         <file>qml/components/AnimeInfo.qml</file>
         <file>qml/images/lists.svg</file>
         <file>qml/images/search.svg</file>
         <file>qml/main.qml</file>
-        <file>qml/components/AniButton.qml</file>
+        <file>qml/components/Button.qml</file>
         <file>qml/images/import.svg</file>
         <file>qml/views/ListForm.qml</file>
         <file>qml/images/settings.svg</file>
         <file>qml/images/add.svg</file>
+        <file>qml/components/Modal.qml</file>
+        <file>qml/components/HorizontalSpacer.qml</file>
     </qresource>
 </RCC>

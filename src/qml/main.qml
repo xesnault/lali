@@ -5,7 +5,7 @@ import QtQuick.Layouts
 import Lali.App
 
 import "views"
-import "components"
+import "components" as Components
 
 Window {
     id: root
@@ -42,7 +42,7 @@ Window {
                 anchors.bottomMargin: 16
                 spacing: 32
                 
-                SideBarButton {
+                Components.SideBarButton {
                     Layout.preferredHeight: 84
                     Layout.preferredWidth: 64
                     Layout.alignment: Qt.AlignCenter | Qt.AlignTop
@@ -54,7 +54,7 @@ Window {
                     selected: currentPage == "lists"
                 }
                 
-                SideBarButton {
+                Components.SideBarButton {
                     Layout.preferredHeight: 84
                     Layout.preferredWidth: 64
                     Layout.alignment: Qt.AlignCenter | Qt.AlignTop
@@ -68,7 +68,7 @@ Window {
 
                 Item { Layout.fillHeight: true } 
                 
-                SideBarButton {
+                Components.SideBarButton {
                     Layout.preferredHeight: 84
                     Layout.preferredWidth: 64
                     Layout.alignment: Qt.AlignCenter | Qt.AlignTop
@@ -79,10 +79,8 @@ Window {
                     }
                 }
                 
-                Dialog {
+                Components.Modal {
                     id: pickList
-                    modal: true
-                    width: 400
                     
                     ColumnLayout {
                         Label {
@@ -93,7 +91,7 @@ Window {
                             text: "AniList user name:"
                         }
             
-                        AniTextField {
+                        Components.TextField {
                             id: anilistUserName
                             Layout.preferredWidth: 200
                             Layout.preferredHeight: 32
@@ -103,7 +101,7 @@ Window {
                             text: "AniList list name:"
                         }
                         
-                        AniTextField {
+                        Components.TextField {
                             id: anilistListName
                             Layout.preferredWidth: 200
                             Layout.preferredHeight: 32
@@ -113,13 +111,15 @@ Window {
                             text: "New local list name:"
                         }
                         
-                        AniTextField {
+                        Components.TextField {
                             id: targetListName
                             Layout.preferredWidth: 200
                             Layout.preferredHeight: 32
                         }
                         
-                        Button {
+                        Components.HorizontalSpacer { height: 16 }
+                        
+                        Components.Button {
                             text: "Import"
                             onClicked: {
                                 app.importFromAnilist(anilistUserName.text, anilistListName.text, targetListName.text);

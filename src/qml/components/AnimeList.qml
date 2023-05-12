@@ -3,6 +3,8 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Lali.Types
 
+import "../components" as Components
+
 ScrollView {
     id: scroller
     
@@ -73,19 +75,11 @@ ScrollView {
         }
     }
     
-    Dialog {
+    Components.Modal {
         id: animeInfo
-        parent: root.contentItem
-        modal: true
         width: root.width * 0.75
         x: (root.width - width) / 2
         y: 128
-        padding: 16
-        
-        background: Rectangle {
-            color: "#222222"
-            radius: 16
-        }
         
         AnimeInfo {
             anime: selectedAnime

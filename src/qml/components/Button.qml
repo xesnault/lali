@@ -1,9 +1,9 @@
 import QtQuick 
-import QtQuick.Controls 2.0
+import QtQuick.Controls as QtQuick
 
-Button {
+QtQuick.Button {
     property string textColor: "white"
-    property string bgColor: "grey"
+    property string bgColor: "#666666"
     text: "Delete"
     implicitHeight: 32
     
@@ -20,6 +20,10 @@ Button {
         implicitWidth: 100
         implicitHeight: 40
         color: bgColor
-        radius: 2
+        radius: 4
+    }
+    
+    HoverHandler {
+        cursorShape: Qt.PointingHandCursor
     }
 }

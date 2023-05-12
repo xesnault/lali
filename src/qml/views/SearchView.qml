@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
-import "../components"
+import "../components" as Components
 
 ColumnLayout {
     anchors.fill: parent
@@ -11,8 +11,9 @@ ColumnLayout {
         Layout.alignment: Qt.AlignTop
         Layout.margins: 16
        
-        AniTextField {
+        Components.TextField {
             id: searchString
+            bgColor: "#595959"
             Layout.preferredWidth: 200
             Layout.preferredHeight: 32
 
@@ -21,7 +22,7 @@ ColumnLayout {
             }
         }
         
-        AniButton {
+        Components.Button {
             text: "Search"
             onClicked: {
                 app.searchAnimes(searchString.text);
@@ -35,7 +36,7 @@ ColumnLayout {
         Layout.fillWidth: true
         color: "transparent"
         
-        AnimeList {
+        Components.AnimeList {
             list: app.searchResults
         }
     }

@@ -2,7 +2,8 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Lali.Types
-import "../components"
+
+import "../components" as Components
 
 ColumnLayout {
     
@@ -20,13 +21,19 @@ ColumnLayout {
         text: "Name"
     }
     
-    AniTextField {
+    Components.TextField {
         id: listName
         Layout.preferredWidth: 200
         Layout.preferredHeight: 32
     }
     
-    AniButton {
+    Rectangle {
+        Layout.fillWidth: true
+        height: 16
+        color: "transparent"
+    }
+    
+    Components.Button {
         id: saveButton
         text: "Save"
         bgColor: "green"
@@ -38,10 +45,7 @@ ColumnLayout {
         }
     }
     
-    Rectangle {
-        height: 16
-        color: "transparent"
-    }
+    Components.HorizontalSpacer { height: 16 }
     
     Label {
         text: "Danger zone"
@@ -54,7 +58,7 @@ ColumnLayout {
         color: "red"
     }
     
-    AniButton {
+    Components.Button {
         text: "DELETE LIST"
         textColor: "white"
         bgColor: "red"
