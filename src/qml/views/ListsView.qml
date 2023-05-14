@@ -19,10 +19,13 @@ RowLayout {
             anchors.margins: 8
             
             RowLayout {
+                
                 Layout.topMargin: 16
                 Layout.bottomMargin: 16
+                
                 Label {
                     text: "Lists"
+                    font.pixelSize: 24
                 }
                 
                 Item { Layout.fillWidth: true }
@@ -168,7 +171,7 @@ RowLayout {
                 Layout.preferredHeight: 32
             }
             
-            Button {
+            Components.Button {
                 text: "Create"
                 onClicked: {
                     app.createList(newListName.text);
@@ -204,7 +207,7 @@ RowLayout {
                 text: "Do you really want to delete this list ?"
             }
             
-            Button {
+            Components.Button {
                 text: "Yes"
                 onClicked: {
                     app.deleteList(listSelector.selectedList);
@@ -221,7 +224,7 @@ RowLayout {
                 }
             }
             
-            Button {
+            Components.Button {
                 text: "No"
                 onClicked: {
                     deleteConfirmation.close();

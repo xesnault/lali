@@ -13,8 +13,10 @@ ColumnLayout {
        
         Components.TextField {
             id: searchString
+            placeholderText: "Enter an anime title..."
+            placeholderTextColor: "#6f6f6f"
             bgColor: "#595959"
-            Layout.preferredWidth: 200
+            Layout.preferredWidth: 256
             Layout.preferredHeight: 32
 
             onEditingFinished: {
