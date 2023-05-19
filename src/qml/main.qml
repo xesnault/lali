@@ -16,14 +16,10 @@ Window {
     color: "#444444"
     
     Component.onCompleted: {
-        app.loadLists();
+        _app.loadLists()
     }
     
     property string currentPage: "lists"
-    
-    App {
-        id: app
-    }
     
     RowLayout {
         anchors.fill: parent

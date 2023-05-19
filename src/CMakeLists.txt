@@ -16,18 +16,14 @@ set(TS_FILES lali_en_US.ts)
 
 set(PROJECT_SOURCES
 		main.cpp
+		AnimeList.h
+		AnimeList.cpp
 		Anime.h
 		Anime.cpp
-		List.h
-		List.cpp
-		ListRepository.h
-		ListRepository.cpp
+		LocalListRepository.h
+		LocalListRepository.cpp
 		AniList.h
 		AniList.cpp
-		ListQML.h
-		ListQML.cpp
-		AnimeQML.h
-		AnimeQML.cpp
         qml.qrc
         ${TS_FILES}
 )

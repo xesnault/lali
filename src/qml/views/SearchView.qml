@@ -20,14 +20,14 @@ ColumnLayout {
             Layout.preferredHeight: 32
 
             onEditingFinished: {
-                app.searchAnimes(searchString.text);
+                _app.searchAnimes(searchString.text);
             }
         }
         
         Components.Button {
             text: "Search"
             onClicked: {
-                app.searchAnimes(searchString.text);
+                _app.searchAnimes(searchString.text);
             }
         }
     }
@@ -39,7 +39,7 @@ ColumnLayout {
         color: "transparent"
         
         Components.AnimeList {
-            list: app.searchResults
+            list: _app.searchResults
         }
     }
 }

@@ -14,7 +14,6 @@ const QString& Anime::GetDescription() const {
     return description;
 }
 
-// Alias for GetDescription()
 const QString& Anime::GetSynopsis() const {
     return GetDescription();
 }

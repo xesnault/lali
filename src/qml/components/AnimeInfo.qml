@@ -5,23 +5,28 @@ import Qt5Compat.GraphicalEffects
 import Lali.Types
     
 ColumnLayout {
-    property AnimeQML anime
+    property Anime anime
     
     anchors.fill: parent
     Layout.alignment: Qt.AlignTop
+    
+    onAnimeChanged: {
+        image.source = anime.cachedImage
+    }
     
     RowLayout {
         
         Layout.alignment: Qt.AlignTop
 
         Image {
+            id: image
             property bool cachedImageFound: true
             Layout.alignment: Qt.AlignTop | Qt.AlignLeft
             Layout.preferredHeight: 128 * 1.5
             Layout.preferredWidth: 128 
             fillMode: Image.PreserveAspectCrop
             asynchronous: true
-            source: anime?.cachedImage || ""
+            source: anime.cachedImage
             
             signal failedToLoad
             

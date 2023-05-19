@@ -150,7 +150,7 @@ void AniList::SearchAnimes(const QString& title, std::function<void(QList<Anime>
 	});
 }
 	
-void AniList::FetchUserLists(const QString userName, std::function<void(QList<List>)> onSuccess, std::function<void()> onFailure) {
+void AniList::FetchUserLists(const QString userName, std::function<void(QList<AnimeList>)> onSuccess, std::function<void()> onFailure) {
 	QString body =
     "{\
         \"query\": \"\
@@ -172,13 +172,13 @@ void AniList::FetchUserLists(const QString userName, std::function<void(QList<Li
 
 	GraphQLQuery(body, [=](QJsonObject json) {
 	
-		QList<List> lists;
+		QList<AnimeList> lists;
 
 			
 		for (int i = 0; i < json["data"].toObject()["MediaListCollection"].toObject()["lists"].toArray().count(); ++i) {
 			auto listJson = json["data"].toObject()["MediaListCollection"].toObject()["lists"].toArray()[i].toObject();
 			auto entries = json["data"].toObject()["MediaListCollection"].toObject()["lists"].toArray()[i].toObject()["entries"].toArray();
-			List list(listJson["name"].toString());
+			AnimeList list(listJson["name"].toString());
 			
 			for (auto entry : entries) {
 				auto media = entry.toObject()["media"].toObject();

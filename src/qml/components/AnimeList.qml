@@ -8,8 +8,8 @@ import "../components" as Components
 ScrollView {
     id: scroller
     
-    property ListQML list
-    property AnimeQML selectedAnime
+    property AnimeList list
+    property Anime selectedAnime
     
     anchors.fill: parent
     clip : true
@@ -92,11 +92,11 @@ ScrollView {
         Menu {
             title: "Add to list"
             Repeater {
-                model: app.listsNames
+                model: _app.animeLists.map(x => x.getName())
                 MenuItem {
                     text: modelData
                     onClicked: {
-                        app.addAnimeToList(selectedAnime, modelData)
+                        _app.addAnimeToList(selectedAnime, modelData)
                     }
                 }
             }
@@ -105,11 +105,11 @@ ScrollView {
         Menu {
             title: "Move to list"
             Repeater {
-                model: app.listsNames
+                model: _app.animeLists.map(x => x.getName())
                 MenuItem {
                     text: modelData
                     onClicked: {
-                        app.moveAnimeToList(selectedAnime, list.name, modelData)
+                        _app.moveAnimeToList(selectedAnime, list.name, modelData)
                     }
                 }
             }
@@ -118,7 +118,7 @@ ScrollView {
         MenuItem {
             text: "Remove from list"
             onClicked: {
-                app.removeAnimeFromList(selectedAnime, list.name)
+                _app.removeAnimeFromList(selectedAnime, list.name)
             }
         }
     }

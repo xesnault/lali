@@ -7,13 +7,14 @@ import "../components" as Components
 
 ColumnLayout {
     
-    property ListQML list
+    property AnimeList list
     property var closeForm
     
-    signal save(ListQML list)
+    signal save(AnimeList list)
     signal deleteList
     
-    onListChanged: {
+    function reload(listToLoad) {
+        list = listToLoad
         listName.text = list.name
     }
     
@@ -39,8 +40,8 @@ ColumnLayout {
         bgColor: "green"
         onClicked: {
             let oldName = list.name
-            list.name = listName.text
-            app.updateList(oldName, list)
+            list.setName(listName.text)
+            _app.updateList(oldName, list)
             parent.save(list)
         }
     }

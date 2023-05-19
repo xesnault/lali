@@ -12,11 +12,25 @@ class Anime
 {
 	
 public:
+    Q_GADGET
+    Q_PROPERTY(QString title MEMBER title CONSTANT)
+    Q_PROPERTY(QString description MEMBER description CONSTANT)
+    Q_PROPERTY(int episodeCount MEMBER episodes CONSTANT)
+    Q_PROPERTY(int startDay MEMBER startDay CONSTANT)
+    Q_PROPERTY(int startMonth MEMBER startMonth CONSTANT)
+    Q_PROPERTY(int startYear MEMBER startYear CONSTANT)
+    Q_PROPERTY(int endDay MEMBER endDay CONSTANT)
+    Q_PROPERTY(int endMonth MEMBER endMonth CONSTANT)
+    Q_PROPERTY(int endYear MEMBER endYear CONSTANT)
+    Q_PROPERTY(QString imageUrl READ getCoverImageUrl CONSTANT)
+    Q_PROPERTY(QString cachedImage READ getCachedImagepath CONSTANT)
+public:
     Anime();
 
     const QString& getTitle() const;
     const QString& GetDescription() const;
-    const QString& GetSynopsis() const; // Alias for GetDescription()
+    // Alias for GetDescription()
+    const QString& GetSynopsis() const;
     const QString& getCoverImageUrl() const;
 	const QString getCachedImagepath() {
 		static QString path = QDir::homePath() + "/.cache/lali/";
@@ -55,7 +69,7 @@ public:
 	
 	
 
-private:
+// private:
 
     QString title;
     QString description;

@@ -4,8 +4,7 @@
 #include <QLocale>
 #include <QTranslator>
 #include <QQmlContext>
-#include "AnimeQML.h"
-#include "ListQML.h"
+#include "App.h"
 
 int main(int argc, char *argv[])
 {
@@ -25,11 +24,12 @@ int main(int argc, char *argv[])
 		}
 	}
 	
-	// qmlRegisterType<BackEnd>("Lali.backend", 1, 0, "BackEnd");
-	qmlRegisterType<AnimeQML>("Lali.Types", 1, 0, "AnimeQML");
-	qmlRegisterType<ListQML>("Lali.Types", 1, 0, "ListQML");
+    qmlRegisterType<AnimeList>("Lali.Types", 1, 0, "AnimeList");
+    qmlRegisterType<Anime>("Lali.Types", 1, 0, "Anime");
 	
 	QQmlApplicationEngine engine;
+    App *backend = new App();
+    engine.rootContext()->setContextProperty("_app", backend);
 	const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
 	QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
 					 &app, [url](QObject *obj, const QUrl &objUrl) {

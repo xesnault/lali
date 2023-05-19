@@ -17,52 +17,46 @@
 #include <qqml.h>
 #include <memory>
 
-#include "ListRepository.h"
+#include "LocalListRepository.h"
 #include "AniList.h"
-#include "ListQML.h"
-
+#include "AnimeList.h"
 
 class App : public QObject
 {
 	Q_OBJECT
-	Q_PROPERTY(QStringList listsNames READ getListsNames NOTIFY listsNamesChanged);
-	Q_PROPERTY(ListQML* selectedList MEMBER selectedList NOTIFY selectedListChanged);
-	Q_PROPERTY(ListQML* searchResults MEMBER searchResults NOTIFY searchResultChanged);
+    Q_PROPERTY(QList<AnimeList> animeLists READ getLists NOTIFY animeListsChanged);
+	Q_PROPERTY(AnimeList searchResults READ getSearchResults NOTIFY searchResultChanged);
 	QML_ELEMENT
 	
 public:
 	explicit App(QObject *parent = nullptr);
 	
-	// State
-	
-	ListQML* selectedList = nullptr;
-	ListQML* searchResults = nullptr;
-	
 	QStringList getListsNames();
-	
-	Q_INVOKABLE void searchAnimes(QString title);
-	Q_INVOKABLE void importFromAnilist(const QString& userName, const QString& listName, const QString& targetListName);
-	
+    
 	Q_INVOKABLE void loadLists();
-	Q_INVOKABLE void selectListByName(QString name);
-	Q_INVOKABLE void addAnimeToList(AnimeQML* anime, QString listName);
-	Q_INVOKABLE void moveAnimeToList(AnimeQML* anime, QString fromListName, QString toListName);
-	Q_INVOKABLE void removeAnimeFromList(AnimeQML* anime, QString listName);
-	Q_INVOKABLE void createList(QString listName);
-	Q_INVOKABLE void deleteList(QString listName);
-    Q_INVOKABLE void updateList(QString listName, ListQML* listQML);
-	
-	/*void saveLists();*/
+    Q_INVOKABLE void createList(QString listName);
+    Q_INVOKABLE void deleteList(QString listName);
+    Q_INVOKABLE void updateList(QString listName, AnimeList listWithUpdate);
+    
+	Q_INVOKABLE void addAnimeToList(Anime anime, QString listName);
+	Q_INVOKABLE void moveAnimeToList(Anime anime, QString fromListName, QString toListName);
+	Q_INVOKABLE void removeAnimeFromList(Anime anime, QString listName);
+    
+    Q_INVOKABLE void searchAnimes(QString title);
+    Q_INVOKABLE void importFromAnilist(const QString& userName, const QString& listName, const QString& targetListName);
+	Q_INVOKABLE void refreshImagesCache(AnimeList animeList);
+    
+    QList<AnimeList> getLists() const;
+    AnimeList getSearchResults() const;
 	
 private:
 	
-	void refreshImagesCache();
-	
-	std::unique_ptr<ListRepository> listRepository;
+    std::unique_ptr<LocalListRepository> localListRepository;
 	AniList aniList;
+    
+    AnimeList searchResults{"Search resulsts"};
 	
-	// State
-	QList<List> lists;
+	QList<AnimeList> animeLists;
 	
 	QNetworkAccessManager http;
 	
@@ -70,10 +64,8 @@ private:
 	QString cachePath = QDir::homePath() + "/.cache/lali";
 	
 signals:
-	void listsChanged();
+	void animeListsChanged();
 	void searchResultChanged();
-	void listsNamesChanged();
-	void selectedListChanged();
 };
 
 #endif // APP_H

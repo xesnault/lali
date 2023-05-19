@@ -13,7 +13,7 @@
 
 // #include "Settings.h"
 #include "Anime.h"
-#include "List.h"
+#include "AnimeList.h"
 
 // Please keep the whitespaces with a REAL SPACE, NOT TAB for graphQL queries for the moment
 #define GRAPHQL_ANILIST_MEDIA_CONTENT "\
@@ -48,7 +48,7 @@ public:
 	void GraphQLQuery(QString body_, std::function<void(QJsonObject)> onSuccess, std::function<void()> onFailure);
 
 	void SearchAnimes(const QString& title, std::function<void(QList<Anime>)> onSuccess, std::function<void()> onFailure);
-	void FetchUserLists(const QString userName, std::function<void(QList<List>)> onSuccess, std::function<void()> onFailure);
+	void FetchUserLists(const QString userName, std::function<void(QList<AnimeList>)> onSuccess, std::function<void()> onFailure);
 	
 signals:
 	

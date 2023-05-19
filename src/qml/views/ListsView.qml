@@ -6,13 +6,29 @@ import Lali.Types
 import "../components" as Components
 
 RowLayout {
+    id: animeListsView
+    property var lists: _app.animeLists
+    property AnimeList selectedList: _app.animelists[0]
+    property int selectedListIndex: 0
     anchors.fill: parent
+    
+    Connections {
+        target: _app
+        function onAnimeListsChanged() {
+            if (animeListsView.selectedListIndex >= _app.animeLists.length) {
+                animeListsView.selectedListIndex = 0
+                animeListsView.selectedList = _app.animeLists[0]
+                return
+            }
+            animeListsView.selectedList = _app.animeLists[selectedListIndex]
+        }
+    }
+    
     Rectangle {
-        id: listSelector
         color: "#3a3a3a"
         implicitWidth: 256
         implicitHeight: parent.height
-        property string selectedList: app.listsNames[0]
+        
         
         ColumnLayout {
             anchors.fill: parent
@@ -49,12 +65,12 @@ RowLayout {
             }
             
             Repeater {
-                model: app.listsNames
+                model: lists.map(x => x.getName())
                 
                 Rectangle {
                     id: button
                     property string text: modelData
-                    property bool selected: modelData === listSelector.selectedList
+                    property bool selected: modelData === animeListsView.selectedList.getName()
                     signal clicked
                     
                     Layout.alignment: Qt.AlignTop
@@ -69,8 +85,8 @@ RowLayout {
                         anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
-                            listSelector.selectedList = modelData
-                            app.selectListByName(modelData);
+                            animeListsView.selectedList = lists[index]
+                            animeListsView.selectedListIndex = index
                             button.clicked();
                         }
                         
@@ -109,7 +125,7 @@ RowLayout {
             
             Label {
                 Layout.alignment: Qt.AlignTop
-                text: `${app.selectedList.name}`
+                text: `${animeListsView.selectedList.name}`
                 color: "white"
                 font.pixelSize: 24
             }
@@ -128,7 +144,7 @@ RowLayout {
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
                     onClicked: {
-                        listEditForm.setListToEdit(app.selectedList)
+                        listEditForm.setListToEdit(animeListsView.selectedList)
                         listEditForm.open();
                     }
                 }
@@ -140,7 +156,7 @@ RowLayout {
             Layout.margins: 16
             Layout.topMargin: 0
             Layout.bottomMargin: 0
-            text: `${app.selectedList.animes.length} anime(s)`
+            text: `${animeListsView.selectedList.getAnimes().length} anime(s)`
             color: "white"
             font.pixelSize: 16
         }
@@ -152,7 +168,7 @@ RowLayout {
             color: "transparent"
             
             Components.AnimeList {
-                list: app.selectedList
+                list: animeListsView.selectedList
             }
         }
     }
@@ -174,7 +190,7 @@ RowLayout {
             Components.Button {
                 text: "Create"
                 onClicked: {
-                    app.createList(newListName.text);
+                    _app.createList(newListName.text);
                     newListNameDialog.close();
                 }
             }
@@ -184,14 +200,13 @@ RowLayout {
     Components.Modal {
         id: listEditForm
         function setListToEdit (list) {
-            listForm.list = list
+            listForm.reload(list)
         }
         
         ListForm {
             id: listForm
             onSave: function (list) {
                 listEditForm.close()
-                listSelector.selectedList = list.name
             }
             onDeleteList: {
                 listEditForm.close()
@@ -210,7 +225,7 @@ RowLayout {
             Components.Button {
                 text: "Yes"
                 onClicked: {
-                    app.deleteList(listSelector.selectedList);
+                    _app.deleteList(animeListsView.selectedList.getName());
                     deleteConfirmation.close();
                 }
                 
