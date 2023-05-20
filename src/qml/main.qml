@@ -118,7 +118,7 @@ Window {
                         Components.Button {
                             text: "Import"
                             onClicked: {
-                                app.importFromAnilist(anilistUserName.text, anilistListName.text, targetListName.text);
+                                _app.importFromAnilist(anilistUserName.text, anilistListName.text, targetListName.text);
                             }
                         }
                     }

@@ -11,14 +11,6 @@ void App::loadLists() {
     emit animeListsChanged();
 }
 
-QStringList App::getListsNames() {
-	QStringList names;
-	for (const auto& list : animeLists) {
-		names.push_back(list.getName());
-	}
-	return names;
-}
-
 void App::searchAnimes(QString title) {
 	aniList.SearchAnimes(title, [=](QList<Anime> results) {
 		searchResults = AnimeList("Search results", results);
@@ -40,6 +32,7 @@ void App::addAnimeToList(Anime anime, QString listName) {
 	auto list = std::find_if(animeLists.begin(), animeLists.end(), [=] (const AnimeList& list) {return list.getName() == listName;});
 	list->add(anime);
 	localListRepository->save(animeLists);
+    refreshImagesCache(*list);
 	emit animeListsChanged();
 };
 

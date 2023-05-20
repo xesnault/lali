@@ -30,8 +30,6 @@ class App : public QObject
 	
 public:
 	explicit App(QObject *parent = nullptr);
-	
-	QStringList getListsNames();
     
 	Q_INVOKABLE void loadLists();
     Q_INVOKABLE void createList(QString listName);

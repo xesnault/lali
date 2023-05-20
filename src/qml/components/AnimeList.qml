@@ -10,12 +10,12 @@ ScrollView {
     
     property AnimeList list
     property Anime selectedAnime
+    property string filterByTitle
     
     anchors.fill: parent
     clip : true
     ScrollBar.vertical.policy: ScrollBar.AlwaysOn
     contentHeight: grid.height
-    
     
     Rectangle {
         anchors.fill: parent
@@ -32,7 +32,14 @@ ScrollView {
             rowSpacing: 32
 
             Repeater {
-                model: list?.animes || []
+                model: {
+                    if (!list) 
+                        return ;
+                    if (filterByTitle) {
+                        return list.animes.filter(anime => anime.title.toLowerCase().includes(filterByTitle.toLowerCase()))
+                    }
+                    return list.animes
+                }
 
                 AnimeCard {
                     anime: modelData

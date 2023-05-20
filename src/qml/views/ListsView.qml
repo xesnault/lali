@@ -10,6 +10,7 @@ RowLayout {
     property var lists: _app.animeLists
     property AnimeList selectedList: _app.animelists[0]
     property int selectedListIndex: 0
+    property string filterByTitle
     anchors.fill: parent
     
     Connections {
@@ -161,14 +162,49 @@ RowLayout {
             font.pixelSize: 16
         }
         
+        Components.TextField {
+            id: searchString
+            placeholderText: "Filter by title..."
+            placeholderTextColor: "#6f6f6f"
+            bgColor: "#595959"
+            Layout.preferredWidth: 256
+            Layout.preferredHeight: 32
+            Layout.margins: 16
+            Layout.bottomMargin: 8
+
+            onEditingFinished: {
+                animeListsView.filterByTitle = searchString.text
+            }
+            
+            onTextChanged: {
+                timer.restart()
+            }
+            
+            Timer {
+                id: timer
+                interval: 1000; running: false; repeat: false
+                onTriggered: animeListsView.filterByTitle = searchString.text
+            }
+        }
+        
+        Rectangle {
+            color: "#525252"
+            height: 1
+            Layout.fillWidth: true
+            Layout.leftMargin: 16
+            Layout.rightMargin: 16
+        }
+        
         Rectangle {
             Layout.alignment: Qt.AlignTop
             Layout.fillHeight: true
             Layout.fillWidth: true
             color: "transparent"
             
+            
             Components.AnimeList {
                 list: animeListsView.selectedList
+                filterByTitle: animeListsView.filterByTitle
             }
         }
     }
