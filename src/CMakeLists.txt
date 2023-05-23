@@ -24,6 +24,7 @@ set(PROJECT_SOURCES
 		LocalListRepository.cpp
 		AniList.h
 		AniList.cpp
+		Status.h
         qml.qrc
         ${TS_FILES}
 )

@@ -3,6 +3,7 @@ import QtQuick.Window
 import QtQuick.Controls
 import QtQuick.Layouts
 import Lali.App
+import Lali.Types
 
 import "views"
 import "components" as Components
@@ -78,6 +79,16 @@ Window {
                 Components.Modal {
                     id: pickList
                     
+                    Connections {
+                        target: _app
+                        function onImportStatusChanged() {
+                            if (_app.importStatus === Status.Completed) {
+                                pickList.close();
+                                _app.importStatus = NONE;
+                            }
+                        }
+                    }
+                    
                     ColumnLayout {
                         Label {
                             text: "This is a small experimental utility to import your lists from AniList."
@@ -116,7 +127,8 @@ Window {
                         Components.HorizontalSpacer { height: 16 }
                         
                         Components.Button {
-                            text: "Import"
+                            enabled: _app.importStatus !== Status.InProgress
+                            text: _app.importStatus !== Status.InProgress ? "Import" : "Importing..."
                             onClicked: {
                                 _app.importFromAnilist(anilistUserName.text, anilistListName.text, targetListName.text);
                             }

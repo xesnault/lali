@@ -68,7 +68,11 @@ void App::deleteList(QString listName) {
 }
 
 void App::importFromAnilist(const QString& userName, const QString& listName, const QString& targetListName) {
+    importStatus = Status::InProgress;
+    emit importStatusChanged();
 	aniList.FetchUserLists(userName, [=](QList<AnimeList> results) {
+        importStatus = Status::Completed;
+        emit importStatusChanged();
 		qDebug() << "SUCCESS";
 		auto list = std::find_if(results.begin(), results.end(), [=] (const AnimeList& list) {return list.getName() == listName;});
 		if (list != results.end()) {
@@ -79,6 +83,8 @@ void App::importFromAnilist(const QString& userName, const QString& listName, co
 			emit animeListsChanged();
 		}
 	}, [=](){
+        importStatus = Status::Error;
+        emit importStatusChanged();
 		qDebug() << "FAILED";
 	});
 };

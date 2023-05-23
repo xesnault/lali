@@ -26,6 +26,7 @@ int main(int argc, char *argv[])
 	
     qmlRegisterType<AnimeList>("Lali.Types", 1, 0, "AnimeList");
     qmlRegisterType<Anime>("Lali.Types", 1, 0, "Anime");
+    qmlRegisterType<StatusClass>("Lali.Types", 1, 0, "Status");
 	
 	QQmlApplicationEngine engine;
     App *backend = new App();

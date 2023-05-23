@@ -20,12 +20,16 @@
 #include "LocalListRepository.h"
 #include "AniList.h"
 #include "AnimeList.h"
+#include "Status.h"
+
+
 
 class App : public QObject
 {
 	Q_OBJECT
     Q_PROPERTY(QList<AnimeList> animeLists READ getLists NOTIFY animeListsChanged);
 	Q_PROPERTY(AnimeList searchResults READ getSearchResults NOTIFY searchResultChanged);
+    Q_PROPERTY(Status importStatus MEMBER importStatus NOTIFY importStatusChanged);
 	QML_ELEMENT
 	
 public:
@@ -41,8 +45,9 @@ public:
 	Q_INVOKABLE void removeAnimeFromList(Anime anime, QString listName);
     
     Q_INVOKABLE void searchAnimes(QString title);
-    Q_INVOKABLE void importFromAnilist(const QString& userName, const QString& listName, const QString& targetListName);
 	Q_INVOKABLE void refreshImagesCache(AnimeList animeList);
+    
+    Q_INVOKABLE void importFromAnilist(const QString& userName, const QString& listName, const QString& targetListName);
     
     QList<AnimeList> getLists() const;
     AnimeList getSearchResults() const;
@@ -51,6 +56,8 @@ private:
 	
     std::unique_ptr<LocalListRepository> localListRepository;
 	AniList aniList;
+    
+    Status importStatus;
     
     AnimeList searchResults{"Search resulsts"};
 	
@@ -64,6 +71,7 @@ private:
 signals:
 	void animeListsChanged();
 	void searchResultChanged();
+    void importStatusChanged();
 };
 
 #endif // APP_H
