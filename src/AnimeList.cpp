@@ -2,5 +2,5 @@
 
 AnimeList::AnimeList()
 {
-    
+	
 }

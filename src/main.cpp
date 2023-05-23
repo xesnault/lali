@@ -24,19 +24,19 @@ int main(int argc, char *argv[])
 		}
 	}
 	
-    qmlRegisterType<AnimeList>("Lali.Types", 1, 0, "AnimeList");
-    qmlRegisterType<Anime>("Lali.Types", 1, 0, "Anime");
-    qmlRegisterType<StatusClass>("Lali.Types", 1, 0, "Status");
+	qmlRegisterType<AnimeList>("Lali.Types", 1, 0, "AnimeList");
+	qmlRegisterType<Anime>("Lali.Types", 1, 0, "Anime");
+	qmlRegisterType<StatusClass>("Lali.Types", 1, 0, "Status");
 	
 	QQmlApplicationEngine engine;
-    App *backend = new App();
-    engine.rootContext()->setContextProperty("_app", backend);
+	App *backend = new App();
+	engine.rootContext()->setContextProperty("_app", backend);
 	const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
 	QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
-					 &app, [url](QObject *obj, const QUrl &objUrl) {
-		if (!obj && url == objUrl)
-			QCoreApplication::exit(-1);
-	}, Qt::QueuedConnection);
+		&app, [url](QObject *obj, const QUrl &objUrl) {
+			if (!obj && url == objUrl)
+				QCoreApplication::exit(-1);
+		}, Qt::QueuedConnection);
 	engine.load(url);
 	
 	return app.exec();

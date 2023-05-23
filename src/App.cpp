@@ -3,36 +3,36 @@
 App::App(QObject *parent) : QObject(parent)
 {
 	QDir().mkdir(dataPath);
-    localListRepository = std::make_unique<LocalListRepository>(dataPath);
+	localListRepository = std::make_unique<LocalListRepository>(dataPath);
 }
 
 void App::loadLists() {
-    animeLists = localListRepository->getAll();
-    emit animeListsChanged();
+	animeLists = localListRepository->getAll();
+	emit animeListsChanged();
 }
 
 void App::searchAnimes(QString title) {
 	aniList.SearchAnimes(title, [=](QList<Anime> results) {
-		searchResults = AnimeList("Search results", results);
-		emit searchResultChanged();
-	}, [=](){
-		qDebug() << "FAILED TO FETCH ANIMES";
-	});
+			searchResults = AnimeList("Search results", results);
+			emit searchResultChanged();
+		}, [=](){
+			qDebug() << "FAILED TO FETCH ANIMES";
+		});
 }
 
 QList<AnimeList> App::getLists() const {
-    return animeLists;
+	return animeLists;
 }
 
 AnimeList App::getSearchResults() const {
-    return searchResults;
+	return searchResults;
 }
 
 void App::addAnimeToList(Anime anime, QString listName) {
 	auto list = std::find_if(animeLists.begin(), animeLists.end(), [=] (const AnimeList& list) {return list.getName() == listName;});
 	list->add(anime);
 	localListRepository->save(animeLists);
-    refreshImagesCache(*list);
+	refreshImagesCache(*list);
 	emit animeListsChanged();
 };
 
@@ -55,7 +55,7 @@ void App::removeAnimeFromList(Anime anime, QString listName) {
 void App::createList(QString listName) {
 	auto newList = AnimeList(listName);
 	animeLists.append(newList);
-    localListRepository->save(animeLists);
+	localListRepository->save(animeLists);
 	emit animeListsChanged();
 }
 
@@ -64,29 +64,29 @@ void App::deleteList(QString listName) {
 		return list.getName() == listName;
 	});
 	localListRepository->save(animeLists);
-    emit animeListsChanged();
+	emit animeListsChanged();
 }
 
 void App::importFromAnilist(const QString& userName, const QString& listName, const QString& targetListName) {
-    importStatus = Status::InProgress;
-    emit importStatusChanged();
+	importStatus = Status::InProgress;
+	emit importStatusChanged();
 	aniList.FetchUserLists(userName, [=](QList<AnimeList> results) {
-        importStatus = Status::Completed;
-        emit importStatusChanged();
-		qDebug() << "SUCCESS";
-		auto list = std::find_if(results.begin(), results.end(), [=] (const AnimeList& list) {return list.getName() == listName;});
-		if (list != results.end()) {
-			qDebug() << "Found list " << listName << " on user " << userName;
-            AnimeList t(targetListName, list->getAnimes());
-			animeLists.append(t);
-            localListRepository->save(animeLists);
-			emit animeListsChanged();
-		}
-	}, [=](){
-        importStatus = Status::Error;
-        emit importStatusChanged();
-		qDebug() << "FAILED";
-	});
+			importStatus = Status::Completed;
+			emit importStatusChanged();
+			qDebug() << "SUCCESS";
+			auto list = std::find_if(results.begin(), results.end(), [=] (const AnimeList& list) {return list.getName() == listName;});
+			if (list != results.end()) {
+				qDebug() << "Found list " << listName << " on user " << userName;
+				AnimeList t(targetListName, list->getAnimes());
+				animeLists.append(t);
+				localListRepository->save(animeLists);
+				emit animeListsChanged();
+			}
+		}, [=](){
+			importStatus = Status::Error;
+			emit importStatusChanged();
+			qDebug() << "FAILED";
+		});
 };
 
 QString formatName(QString name) {
@@ -122,21 +122,21 @@ void App::refreshImagesCache(AnimeList animeList) {
 			
 			QByteArray coverImageData = coverImageReply->readAll();
 			QFile file(path);
-				if (file.open(QIODevice::WriteOnly)) {
-					file.write(coverImageData);
-					file.flush();
-					file.close();
-				}
+			if (file.open(QIODevice::WriteOnly)) {
+				file.write(coverImageData);
+				file.flush();
+				file.close();
+			}
 		});
 	}
 }
 
 void App::updateList(QString listName, AnimeList listWithUpdate) {
-    auto list = std::find_if(animeLists.begin(), animeLists.end(), [=] (const AnimeList& list) {return list.getName() == listName;});
-    if (list == animeLists.end()) {
-        return ;
-    }
-    list->setName(listWithUpdate.getName());
-    emit animeListsChanged();
-    localListRepository->save(animeLists);
+	auto list = std::find_if(animeLists.begin(), animeLists.end(), [=] (const AnimeList& list) {return list.getName() == listName;});
+	if (list == animeLists.end()) {
+		return ;
+	}
+	list->setName(listWithUpdate.getName());
+	emit animeListsChanged();
+	localListRepository->save(animeLists);
 }

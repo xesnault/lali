@@ -7,19 +7,19 @@
 
 class LocalListRepository : public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit LocalListRepository(const QString& dataPath, QObject *parent = nullptr) : QObject{parent}, dataPath(dataPath) {};
-    
-    QList<AnimeList> getAll();
-    void save(QList<AnimeList> lists); // Save everything for the moment
-    
+	explicit LocalListRepository(const QString& dataPath, QObject *parent = nullptr) : QObject{parent}, dataPath(dataPath) {};
+	
+	QList<AnimeList> getAll();
+	void save(QList<AnimeList> lists); // Save everything for the moment
+	
 private:
-    
-    QString dataPath;
-    QList<AnimeList> loadLists();
-    QList<AnimeList> cachedLists;
-    
+	
+	QString dataPath;
+	QList<AnimeList> loadLists();
+	QList<AnimeList> cachedLists;
+	
 };
 
 #endif // LOCALLISTREPOSITORY_H

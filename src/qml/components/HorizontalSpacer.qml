@@ -1,6 +1,6 @@
 import QtQuick 
 
 Rectangle {
-    height: 16
-    color: "transparent"
+	height: 16
+	color: "transparent"
 }

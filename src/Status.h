@@ -5,13 +5,13 @@
 
 class StatusClass 
 {
-    Q_GADGET
-    
+	Q_GADGET
+	
 public:
-    enum States {
-        None, InProgress, Error, Completed
-    };
-    Q_ENUM(States)
+	enum States {
+		None, InProgress, Error, Completed
+	};
+	Q_ENUM(States)
 };
 
 using Status = StatusClass::States;
